@@ -1,0 +1,47 @@
+.navbar {
+    background-color: rgba(216, 133, 60, 0.91);
+    color: #d8853c;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 85px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 30px 0;
+    font-weight: 500;
+    z-index: 99;
+    transition: all linear 0.2s;
+    border-bottom: 1px solid #d8853c;
+}
+
+.nav-link{
+    font-size: large;
+    color: #fff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 10px;
+}
+.nav-link:hover {
+    color: black;
+}
+
+
+.navbar .navbar-brand img {
+    margin-left: 30px;
+}
+
+.navbar.scrolled {
+    background-color:  #d8853c;
+    color: white;
+    padding: 8px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.navbar.scrolled .nav-link{
+    color: white;
+}
+
+.navbar.scrolled .nav-link:hover{
+    color: black;
+}
