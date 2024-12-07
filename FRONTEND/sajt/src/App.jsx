@@ -6,19 +6,19 @@ import {
 } from "react-router-dom";
 
 import Login from './pages/loginAndRegister/login';
-import Register from './pages/loginAndRegister/register'
 import Home from './pages/Home/Home'
 import "./style.css"
 import Profile from './pages/profile/profile';
 import ContextProvider from './context/stateContext';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheckSquare, faCoffee,faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faCoffee,faTimes,faB ,faRss} from '@fortawesome/free-solid-svg-icons'
+import About from "./components/About/About";
 
 
 
 function App() {
-    library.add(fab, faCheckSquare, faCoffee,faTimes)
+    library.add(fab, faCheckSquare, faCoffee,faTimes,fab,faRss)
     return (
         <Router>
             <ContextProvider>
@@ -26,14 +26,11 @@ function App() {
                     <Route
                         exact path = '/'
                         element ={<Home />}
+
                     />
                     <Route
                         exact path="/login"
                         element= {<Login />}
-                    />
-                    <Route
-                        exact path="/register"
-                        element= {<Register />}
                     />
                     <Route
                         exact path="/:username"
