@@ -1,0 +1,20 @@
+:root{
+  --darkColor: #d8853c;
+  --mainColor: #974e00;
+  --firstColor: #ffcfb7;
+  --secondColor: #f1f1e3;
+  --lightColor: #F7F8F3;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
