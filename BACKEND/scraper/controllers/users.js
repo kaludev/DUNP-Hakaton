@@ -95,24 +95,47 @@ const login = async (req,res) =>{
             console.log('no user')
             const id= uid(20)
             const hashedPassword = await hashPassword(password);
-            await mysql.query('INSERT INTO ucenici (id, ime, email, password) VALUES (?, ?, ?, ?)', [id, name, username, hashedPassword]);
+            databasedata= await mysql.query('INSERT INTO ucenici (id, ime, email, password) VALUES (?, ?, ?, ?)', [id, name, username, hashedPassword]);
         }else{
             const isPasswordCorrect = await comparePasswords(password,databasedata[0].password);
             if(!isPasswordCorrect) throw new UnauthenticatedError('Password is incorect')
         }
         for( let key in averages){
-            averages
+            let id;
+            let data1 = await mysql.query("SELECT * FROM predmet WHERE naziv = ?",[key]);
+            if(data1.length === 0){
+                const data2= await mysql.query("INSERT INTO predmet(naziv) VALUES (?)",[key]);
+                console.log(data2)
+                console.log(id)
+                console.log(data2.insertId)
+                id= data2.insertId;
+
+            }else{
+                console.log(data1)
+                id = data1[0].predmet_id;
+            }
+            const ocena = averages[key];
+            const predmetId = id;
+            const exist = await mysql.query("SELECT * FROM ocena WHERE ucenik_id = ? AND predmet_id = ?",[databasedata[0].id,id]);
+            if(exist.length == 0){
+                console.log(databasedata)
+                let data = await mysql.query("INSERT INTO ocena(ucenik_id,predmet_id,ocena) VALUES (?,?,?)",[databasedata[0].id,predmetId,ocena])
+            }else{
+                const data = await mysql.query("UPDATE ocena SET ocena = ? WHERE ucenik_id = ? AND predmet_id = ?", [ocena,databasedata[0].id,predmetId])
+            }
+
         }
 
+        console.log(databasedata[0])
 
-        attachCookies(res,{id:data.id,username:name,email:data.email});
         res.status(StatusCodes.OK).json({
             ok:true,
             message:'Logged in successfully',
             user:{
-                id:databasedata.id,
-                email:data.email,
-                username: data.username
+                id:databasedata[0].id,
+                email:databasedata[0].email,
+                username: databasedata[0].username,
+                token:attachCookies(res,{id:databasedata[0].id,username:name})
             }
         })
     } catch (error) {
@@ -132,8 +155,8 @@ const showMe = async (req,res) =>{
         ok:true,
         user:{
             id:id,
-            email:data.email,
-            username:data.username
+            email:data[0].email,
+            username:data[0].username
         }
     });
 }

@@ -23,8 +23,12 @@ app.use(express.json())
 
 
 
-app.use(helmet()) 
-app.use(cors())
+app.use(helmet())
+app.use(cors({
+    origin: 'http://localhost:3000', // React frontend address (adjust as needed)
+    methods: ['GET', 'POST'],
+    credentials: true,
+}))
 app.use(xss())
 app.use(cookieParser())
 

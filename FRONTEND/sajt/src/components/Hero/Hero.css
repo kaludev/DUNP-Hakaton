@@ -1,26 +1,18 @@
-.img1{
-    background-image: url('../../../public/img/skola.jpg');
-    background-size: cover;
-    filter: brightness(50%);
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.img2{
-    background-image: url('../../../public/img/skola2.webp');
-    background-size: cover;
-    filter: brightness(50%);
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.img3{
-    background-image: url('../../../public/img/skola3.jpg');
+.slika img {
     background-size: cover;
     filter: brightness(50%);
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.carousel{
-    height: 100vh;
-    display: flex;
+.carousel-caption {
+    position: absolute;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    color: white;
+    margin-top: 130px;
 }

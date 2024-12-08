@@ -28,9 +28,12 @@ function Login(){
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify(formData)
             }) 
+
             const json = await res.json();
+            localStorage.setItem('auth_token', json.user.token);
             toast.success("Uspesno logovanje na esDnevnik");
             if(!res.ok) throw new Error(json.message);
             setTimeout(() => {

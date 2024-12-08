@@ -11,6 +11,7 @@ import Home from "../../pages/Home/Home";
 
 function Navbar({menuVisible,setMenuVisible}){
     const {user,setUser} = useStateContext();
+    console.log(user)
     const navigate = useNavigate();
     const [toggleDropdown, setToggleDropdown] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -31,6 +32,24 @@ function Navbar({menuVisible,setMenuVisible}){
             }
         }
     },[window.location.href])
+    useEffect(() => {
+        console.log(user)
+    }, [user]);
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('http://localhost:5000/api/users/showme',{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                },
+            });
+            const data = await res.json();
+
+            if(!data.ok) throw new Error(data.message);
+            setUser(data.user);
+        })()
+    },[])
     async function logout(){
         const res = await fetch('/api/users/logout',{
             method: 'POST'
@@ -56,7 +75,8 @@ function Navbar({menuVisible,setMenuVisible}){
                         <Link className="nav-link" to="/">Pocetna</Link>
                         <Link className="nav-link" to="/boravak">Produženi boravci</Link>
                         <HashLink className="nav-link" to="/#about">O nama</HashLink>
-                        <Link className="nav-link" to="/login">Korisnicki servis</Link>
+
+                        {user !== null && (user!=null?<Link className="nav-link" to="/login">Korisnicki servis</Link>:<Link className="primarybutton" to="/profile">Nalog</Link>)}
                     </div>
                 </div>
             </div>

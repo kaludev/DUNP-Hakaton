@@ -3,9 +3,8 @@ const createToken = require('./createToken')
 const attachCookies = (res,userData) =>{
     const token = createToken(userData);
 
-    res.cookie('token',token, {
-        httpOnly: true,
-  })
+    return token;
+
 }
 
 module.exports = attachCookies;
