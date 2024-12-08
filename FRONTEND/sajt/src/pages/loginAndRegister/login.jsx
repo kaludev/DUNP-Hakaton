@@ -3,7 +3,8 @@ import {Link,useNavigate} from 'react-router-dom'
 import { useStateContext } from "../../context/stateContext";
 import "./loginAndRegister.css"
 import Navigation from "../../components/Navigation/Navigation";
-import {toast} from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const initialFormData = {
     username: "",
@@ -22,7 +23,7 @@ function Login(){
         e.preventDefault();
         try{
             
-            const res = await fetch("/login", {
+            const res = await fetch("http://localhost:5000/api/users/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -31,11 +32,13 @@ function Login(){
             }) 
             const json = await res.json();
             toast.success("Uspesno logovanje na esDnevnik");
-            if(!json.ok) throw new Error(json.message);
-            navigate("/")
+            if(!res.ok) throw new Error(json.message);
+            setTimeout(() => {
+                navigate("/profile")
+            }, 1000)
+
         }
         catch(error){
-            alert(error);
         }
     }
     return(
@@ -45,7 +48,7 @@ function Login(){
                     <div className="title">Prijavite se</div>
                     <div className="subtitle">Koristite nalog sa esdnevnika</div>
                     <div className="inputContainer">
-                        <input id="username" name="email" value={formData.email} className="input" type="text"
+                        <input id="username" name="username" value={formData.email} className="input" type="text"
                                placeholder="" onChange={handleChange}/>
                         <div className="cut"></div>
                         <label htmlFor="username" className="placeholder">Email</label>
@@ -63,6 +66,7 @@ function Login(){
                 <div className="formImg">
                 </div>
             </div>
+            <ToastContainer />
         </>
 
     );
