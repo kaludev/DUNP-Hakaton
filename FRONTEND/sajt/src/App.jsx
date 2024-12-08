@@ -17,6 +17,7 @@ import About from "./components/About/About";
 import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 import Boravak from "./pages/Boravak/Boravak";
+import Personalizacija from "./pages/Personalizacija/Personalizacija";
 
 
 
@@ -43,6 +44,10 @@ function App() {
                         <Route
                             exact path="/login"
                             element= {<Login />}
+                        />
+                        <Route
+                            exact path="/personalizacija"
+                            element= {<Personalizacija />}
                         />
                         <Route
                             exact path="/:username"

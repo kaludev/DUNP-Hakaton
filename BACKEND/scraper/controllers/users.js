@@ -161,6 +161,26 @@ const showMe = async (req,res) =>{
     });
 }
 
+    const profile = async (req,res) =>{
+        const id = req.user.userId;
+        const data = await mysql.query('SELECT * FROM ucenici WHERE id = ?', [id]);
+        console.log(data)
+        if(data.length === 0) throw new UnauthenticatedError("User with provided id doesn't exists")
+
+        const grades = await mysql.query('SELECT * FROM ocena o INNER JOIN predmet p ON o.predmet_id = p.predmet_id WHERE ucenik_id = ?', [id]);
+
+
+        res.status(StatusCodes.OK).json({
+            ok:true,
+            user:{
+                id:id,
+                email:data[0].email,
+                ime:data[0].ime
+            },
+            grades:grades
+        });
+    }
+
 const logout = (req, res) => {
     res.cookie("token", "logout", {
 		httpOnly: true,
@@ -170,4 +190,4 @@ const logout = (req, res) => {
 }
 
 
-module.exports = {login,showMe,logout};
+module.exports = {login,showMe,profile,logout};

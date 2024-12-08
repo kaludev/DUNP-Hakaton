@@ -45,9 +45,13 @@ function Navbar({menuVisible,setMenuVisible}){
                 },
             });
             const data = await res.json();
-
             if(!data.ok) throw new Error(data.message);
             setUser(data.user);
+            console.log(data.user)
+            if(data.user !== null && window.location.pathname === "/login"){
+                console.log(data.user)
+                navigate('/profile')
+            }
         })()
     },[])
     async function logout(){
@@ -72,11 +76,11 @@ function Navbar({menuVisible,setMenuVisible}){
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav ms-auto">
-                        <Link className="nav-link" to="/">Pocetna</Link>
-                        <Link className="nav-link" to="/boravak">Produženi boravci</Link>
+                        <Link className="nav-link" to="/">Početna</Link>
                         <HashLink className="nav-link" to="/#about">O nama</HashLink>
-
-                        {user !== null && (user!=null?<Link className="nav-link" to="/login">Korisnicki servis</Link>:<Link className="primarybutton" to="/profile">Nalog</Link>)}
+                        <Link className="nav-link" to="/boravak">Produženi boravci</Link>
+                        <Link className="nav-link" to="/personalizacija">Personalizacija</Link>
+                        {user !== null && (user!=null?<Link className="nav-link" to="/login">Korisnički servis</Link>:<Link className="primarybutton" to="/profile">Nalog</Link>)}
                     </div>
                 </div>
             </div>

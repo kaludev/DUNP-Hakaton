@@ -1,39 +1,34 @@
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link,useNavigate} from 'react-router-dom'
 import "./profileStyle.css"
 import Navbar from "../../components/Navbar/Navbar";
 import {IonIcon} from '@ionic/react'
 import {cloudUploadOutline} from 'ionicons/icons'
+import {useStateContext} from "../../context/stateContext";
 function Profiles(){
+    const {user} = useStateContext()
+    const [data, setData] = useState({})
+    useEffect(() => {
+        (async () => {
+            const response = await fetch('http://localhost:5000/api/users/profile',
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+                })
+            const data = await response.json()
+            console.log(data)
+            setData(data)
+        })()
+    },[])
     return (
-    <>
-        <Navbar />
-        <div className="mainProfile">
-            <div className="profile">
-                <div className="profliePicDiv">
-                    <div className="profilePicMain">
-                        <div className="updateProfilePic">
-                            <input type="file" id="inputFile" />
-                            <label className="labelFile" htmlFor="inputFile"><IonIcon icon={cloudUploadOutline}></IonIcon></label>
-                        </div>
-                    </div>
-                </div>
-                <div className="profileDescDiv">
-                    <div className="profileName">Nikola Milanovic</div>
-                    <div className="profileUsername"><span className="statistics">@nikola.miilanovic</span></div>
-                    <div className="profileData">
-                        <div className="profileChats"><span className="statistics">23</span> likes</div>
-                        <div className="profileFriends"><span className="statistics">117</span> friends</div>
-                    </div>
-                    <div className="profileData">
-                        <button className="addFriend">Edit profile</button>
-                    </div>
-                </div>
-            </div>
-            <div className="profileContent"> 
-            </div>
-        </div>
-    </>
+        data?.user?.ime?<>
+            <h2>Ime učenika: {data.user.ime}</h2>
+
+
+        </>:<></>
     )
 }
 
