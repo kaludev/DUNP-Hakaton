@@ -167,7 +167,7 @@ const showMe = async (req,res) =>{
         console.log(data)
         if(data.length === 0) throw new UnauthenticatedError("User with provided id doesn't exists")
 
-        const grades = await mysql.query('SELECT * FROM ocena o INNER JOIN predmet p ON o.predmet_id = p.predmet_id WHERE ucenik_id = ?', [id]);
+        const grades = await mysql.query('SELECT * FROM ocena o INNER JOIN predmet p ON o.predmet_id = p.predmet_id INNER JOIN profesor pr ON p.profesor_id = pr.id  WHERE ucenik_id = ?', [id]);
 
 
         res.status(StatusCodes.OK).json({

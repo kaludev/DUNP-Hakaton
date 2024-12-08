@@ -10,7 +10,10 @@ const Boravak = () => {
         <div className="main container row justify-content-center d-flex">
             <div className="col-6">
                 <h1 className="heading">Boravci</h1>
-                <h2 className="subheading">Na ovoj stranici mozete naci produzene boravke</h2>
+                <h2 className="subheading">Ukoliko ste zadrzani na poslu ili niste u mogucnosti da odmah pokupite svog
+                    osnovca, kod nas mozete resiti taj problem. Na mapi su prikazani svi boravci u blizni, kao i kontakt
+                    informacije poput naziva, telefona i sajta. Za odabir boravka je dovoljno da iskoristite vec poznate
+                    informacije o njima.</h2>
             </div>
             <div className="col-6">
                 <MapContainer center={[yourLocation.lat, yourLocation.lng]} zoom={13} scrollWheelZoom={true}>

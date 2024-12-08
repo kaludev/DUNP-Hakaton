@@ -24,11 +24,15 @@ function Profiles(){
         })()
     },[])
     return (
-        data?.user?.ime?<>
+        data?.user?.ime?<div className="profile">
             <h2>Ime učenika: {data.user.ime}</h2>
+            {data.grades.map((grade,index) => (<div className={"grade"} key={index}>
+                <h5>{grade.naziv}</h5>
+                <h5>{grade.ocena}</h5>
+                <div className="vannastavneAktivnosti">{(grade.ocena==5)?<Link className="primarybutton" to=""}></Link>:(grade.ocena<=3 &&<Link to={})}</div>
+            </div>))}
 
-
-        </>:<></>
+        </div>:<></>
     )
 }
 

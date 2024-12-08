@@ -1,5 +1,6 @@
 import React from 'react';
 import "./About.css"
+import {Link} from "react-router-dom";
 const About = () => {
     return (
         <section className="about" id="about">
@@ -12,7 +13,7 @@ const About = () => {
                             <p style={{marginBottom: "11%"}}>Na nasem sajtu mozete preuzimati sve materijale koje
                                 nastavnik okaci za svoje ucenike i biti obavesteni o novijim informacijama</p>
                             <img src="img/elogo.svg"/>
-                            <a href="#">Saznaj vise</a>
+                            <Link to="/boravak">Saznaj vise</Link>
                         </div>
                     </div>
 
@@ -22,7 +23,7 @@ const About = () => {
                             <p style={{marginBottom: "17%"}}>Pre ili nakon nastave, zakazite vreme u boravku za svoje
                                 djake, koji ce se zajedno sa ostalom decom druziti i uciti uz svoje nastavnike.</p>
                             <img src="img/rest.svg"/>
-                            <a href="#">Saznaj vise</a>
+                            <Link to="/boravak">Saznaj vise</Link>
                         </div>
                     </div>
 
@@ -32,7 +33,7 @@ const About = () => {
                             <p style={{marginBottom: "11%"}}>U slucaju slobodnog vremena opisite sta Vas osnovac najvise
                                 voli nakon skole i selktujte kojoj aktivnosti van nastave bi se najbolje uklopio.</p>
                             <img src="img/enjoy.svg"/>
-                            <a href="#">Saznaj vise</a>
+                            <Link to="/boravak">Saznaj vise</Link>
                         </div>
                     </div>
                 </div>
