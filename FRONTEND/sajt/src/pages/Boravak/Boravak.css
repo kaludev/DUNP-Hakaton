@@ -1,0 +1,23 @@
+.main {
+
+    margin-top: 150px;
+    margin-bottom: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.heading{
+    margin-bottom: 50px;
+    color: #d8853c;
+    text-align: center;
+}
+.leaflet-container {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    height: 60vh;
+    width: 60vh;
+    z-index:1;
+}
+.subheading{
+    color: #d8853c;
+}

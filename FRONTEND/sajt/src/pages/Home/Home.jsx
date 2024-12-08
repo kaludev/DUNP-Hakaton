@@ -12,12 +12,11 @@ function Home() {
     const {user} = useStateContext();
     return(
         <>
-            <Navigation />
+
             <main>
                 <Hero/>
                 <About/>
             </main>
-            <Footer/>
         </>
     )
 }

@@ -3,9 +3,10 @@ import {Link,useNavigate} from 'react-router-dom'
 import { useStateContext } from "../../context/stateContext";
 import "./loginAndRegister.css"
 import Navigation from "../../components/Navigation/Navigation";
+import {toast} from "react-toastify";
 
 const initialFormData = {
-    email: "",
+    username: "",
     password: ""
 }
 function Login(){
@@ -21,7 +22,7 @@ function Login(){
         e.preventDefault();
         try{
             
-            const res = await fetch("/api/users/login", {
+            const res = await fetch("/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -29,8 +30,8 @@ function Login(){
                 body: JSON.stringify(formData)
             }) 
             const json = await res.json();
+            toast.success("Uspesno logovanje na esDnevnik");
             if(!json.ok) throw new Error(json.message);
-            setUser(json.user);
             navigate("/")
         }
         catch(error){
@@ -39,7 +40,6 @@ function Login(){
     }
     return(
         <>
-            <Navigation/>
             <div className="formBg">
                 <form onSubmit={handleSubmit} action="" id="login">
                     <div className="title">Prijavite se</div>

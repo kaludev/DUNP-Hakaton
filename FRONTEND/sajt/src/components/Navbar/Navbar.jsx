@@ -54,6 +54,7 @@ function Navbar({menuVisible,setMenuVisible}){
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav ms-auto">
                         <Link className="nav-link" to="/">Pocetna</Link>
+                        <Link className="nav-link" to="/boravak">Produženi boravci</Link>
                         <HashLink className="nav-link" to="/#about">O nama</HashLink>
                         <Link className="nav-link" to="/login">Korisnicki servis</Link>
                     </div>

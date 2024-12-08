@@ -36,13 +36,22 @@ app.post('/login', async (req, res) => {
     try {
         const puppeteer = require('puppeteer');
         const browser = await puppeteer.launch({
-            headless: false,  // Set to false to see the browser window
-            defaultViewport: null  // Use the default viewport size
+            headless: true,
+            args: [
+                '--disable-web-security',
+                '--disable-features=IsolateOrigins',
+                '--disable-site-isolation-trials',
+                '--disable-setuid-sandbox',
+                '--enable-webgl',
+                '--disable-dev-shm-usage',
+            ],
         });
 
         // Open a new page
         const page = await browser.newPage('https://moj.esdnevnik.rs');
-
+        await page.setUserAgent(
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        );
         // Navigate to the website
         await page.goto('https://moj.esdnevnik.rs');
 
@@ -59,11 +68,30 @@ app.post('/login', async (req, res) => {
         const counter = await page.$eval(".counter",el=>el.textContent)
         console.log(counter)
         //console.log(parseInt(counter))
-        await page.focus((await page.$$eval(".has-dropdown"))[1])
-        await page.keyboard.type('\n');
+        await page.$eval( ".filter-bar ul li.has-dropdown", elem => elem.click())
+        await page.keyboard.press('Enter');
         await page.click(".has-dropdown");
-        console.log(await (await (await page.$('[name="schools"] ul')).$$("li"))[1].evaluate(el=>el.textContent))
-        await (await (await page.$('[name="schools"] ul')).$$("li"))[1].click()
+        await page.waitForSelector(".cloud-left-grade",{timeout:60000});
+        let grades = await page.$$eval(".cloud",el=>el.map(n=>{if(n.querySelector('.cloud-left-grade')?.textContent )return {name:n.querySelector('.cloud-header').textContent.trim(),grade:n.querySelector('.cloud-left-grade').textContent.trim()}}))
+        grades = grades.filter(n => n!=null)
+        console.log(grades)
+        const sums = {}
+        const counts = {}
+        for(let i=0;i<grades.length;i++){
+            const {name,grade} = grades[i];
+            const namelatin= convert(name)
+            if(!sums[namelatin])sums[namelatin]=0;
+            sums[namelatin]+=parseInt(grades[i].grade);
+            counts[namelatin] = counts[namelatin]? counts[namelatin]+1:1;
+        }
+        console.log(sums)
+        console.log(counts)
+        const averages = {};
+        for(let key in sums){
+            averages[key] = sums[key]/counts[key]
+        }
+        console.log(averages)
+        const data = {}
         await page.screenshot({ path: 'screenshot.png' });
 
         //await browser.close();
