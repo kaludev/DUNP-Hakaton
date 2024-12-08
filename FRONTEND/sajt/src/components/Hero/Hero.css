@@ -1,21 +1,26 @@
 .img1{
     background-image: url('../../../public/img/skola.jpg');
     background-size: cover;
+    filter: brightness(50%);
     background-position: center;
     background-repeat: no-repeat;
 }
 .img2{
     background-image: url('../../../public/img/skola2.webp');
     background-size: cover;
+    filter: brightness(50%);
     background-position: center;
     background-repeat: no-repeat;
 }
 .img3{
     background-image: url('../../../public/img/skola3.jpg');
     background-size: cover;
+    filter: brightness(50%);
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .carousel{
     height: 100vh;
+    display: flex;
 }
